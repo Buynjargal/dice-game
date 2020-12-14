@@ -38,26 +38,50 @@ document.querySelector(".btn-roll").addEventListener("click", function(){
         document.getElementById("current-" + activePlayer).textContent = roundScore;
     }else{
         //1 buusan bol toglogchiin eeljjig end solij ogno.
-
-        //ene toglogchiin eeljindee tsugluulsan onoog 0 bolgono.
-        roundScore = 0;
-        document.getElementById("current-" + activePlayer).textContent = 0;
-
-
-        //toglogchiin eeljiig ngo toglogch ruu shiljulne.
-        //herev idevhtei toglogch ni 0 bvl 1 bolgono
-        //herev idevhtei toglogch ni 1 bvl 0 bolgono
-
-        activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
-
-        //Ulaan tsegiig shiljuuulne
-        document.querySelector(".player-0-panel").classList.toggle("active");
-        document.querySelector(".player-1-panel").classList.toggle("active");
-
-        //Shoog tur alga bolgono.
-        diceDom.style.display = "none";
-
-
-
+        switchToNextPlayer();
     }
+});
+
+//HOLD tovchnii event listener
+document.querySelector(".btn-hold").addEventListener("click", function(){
+    //ug toglogchiin tsugluulsan onoog global onoon der ni nemne.
+    scores[activePlayer] = scores[activePlayer] + roundScore;
+
+    //Delgets der onoog ni oorchilno.
+    document.getElementById("score-" + activePlayer).textContent = scores[activePlayer];
+
+    //Ug toglogch hojson esehiig shalgah. onoo ni 100gaas ih eseh.
+    if(scores[activePlayer] >= 20){
+        //Yalagch gesen text iig nerniih ni orond gargana
+        document.getElementById("name-" + activePlayer).textContent = "WINNER!!!"; 
+        document.querySelector(".player-" + activePlayer + "-panel").classList.add("winner");
+        document.querySelector(".player-" + activePlayer + "-panel").classList.remove("active");
+        //
+    } else {
+        //Toglogchiin eeljiig solino
+        switchToNextPlayer();
+    }
+
+});
+
+//Ene function ni togloh eeljiig ngo toglogch ruu shiljulne.
+function switchToNextPlayer(){
+    //ene toglogchiin eeljindee tsugluulsan onoog 0 bolgono.
+    roundScore = 0;
+    document.getElementById("current-" + activePlayer).textContent = 0;
+
+    //toglogchiin eeljiig ngo toglogch ruu shiljulne.
+    activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
+
+    //Ulaan tsegiig shiljuuulne
+    document.querySelector(".player-0-panel").classList.toggle("active");
+    document.querySelector(".player-1-panel").classList.toggle("active");
+
+    //Shoog tur alga bolgono.
+    diceDom.style.display = "none";
+};
+
+//Shine togloom ehluuleh event listener
+document.querySelector(".btn-new").addEventListener("click", function(){
+    alert("clicked");
 });
